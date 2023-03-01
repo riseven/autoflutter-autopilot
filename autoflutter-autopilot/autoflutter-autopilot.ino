@@ -8,6 +8,10 @@ const double THROTTLE_TRIM_VALUE = 0.5;
 State state;
 
 // TODO: Pass the PID parameters
+PID roll_attitude;
+PID roll_rate_damping;
+PID course_hold;
+
 PID pitch_attitude_hold;
 PID altitude_hold_using_commanded_pitch;
 PID airspeed_hold_using_commanded_pitch;
@@ -27,6 +31,7 @@ void enable_autopilot(State &state)
     autopilot_state.set_h = state.h;
     autopilot_state.set_airspeed = state.airspeed;
     autopilot_state.h_hold = H_HOLD;
+    autopilot_state.set_chi = state.chi;
     // TODO: Any more things we need to set up
   }
 }
@@ -58,6 +63,13 @@ void process_state(State &state, SensorData &sensor_data)
 
 void autopilot(State &state, AutopilotState &autopilot_state, Actuators &actuators)
 {
+  // Lateral-directional Autopilot
+  double commanded_phi;
+
+  commanded_phi = course_hold.calculate(autopilot_state.set_chi, state.chi);
+  actuators.delta_a = roll_attitude.calculate(commanded_phi, state.phi) -
+                      roll_rate_damping.calculate(state.p, 0.);
+
   // Longitudinal Autopilot
   bool is_in_descend = state.h > autopilot_state.set_h + autopilot_state.h_hold;
   bool is_in_ascend = state.h < autopilot_state.set_h - autopilot_state.h_hold;
@@ -67,22 +79,27 @@ void autopilot(State &state, AutopilotState &autopilot_state, Actuators &actuato
 
   if (is_in_descend)
   {
-    actuators.thrust = 0;
+    actuators.thrust = 0.;
     commanded_pitch = airspeed_hold_using_commanded_pitch.calculate(
-        autopilot_state.set_airspeed, state.airspeed);
+        autopilot_state.set_airspeed,
+        state.airspeed);
   }
   else if (is_in_hold)
   {
-    actuators.thrust = THROTTLE_TRIM_VALUE + airspeed_hold_using_throttle.calculate(
-                                                 autopilot_state.set_airspeed, state.airspeed);
+    actuators.thrust = THROTTLE_TRIM_VALUE +
+                       airspeed_hold_using_throttle.calculate(
+                           autopilot_state.set_airspeed,
+                           state.airspeed);
     commanded_pitch = altitude_hold_using_commanded_pitch.calculate(
-        autopilot_state.set_h, state.h);
+        autopilot_state.set_h,
+        state.h);
   }
   else if (is_in_ascend)
   {
-    actuators.thrust = 1;
+    actuators.thrust = 1.;
     commanded_pitch = airspeed_hold_using_commanded_pitch.calculate(
-        autopilot_state.set_airspeed, state.airspeed);
+        autopilot_state.set_airspeed,
+        state.airspeed);
   }
 
   actuators.pitch = pitch_attitude_hold.calculate(commanded_pitch, state.pitch);

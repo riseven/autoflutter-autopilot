@@ -13,25 +13,26 @@ class SensorData
 {
 public:
   double h;
-  // Whatever it is that we have sensors for
 };
 
 class State
 {
 public:
-  // Whatever
   double h;
   double pitch;
   double airspeed;
+  double phi;
+  double p;
+  double chi;
 };
 
 class Actuators
 {
 public:
-  // Whatever
   double delta_e;
   double thrust;
   double pitch;
+  double delta_a;
 };
 
 class AutopilotState
@@ -41,4 +42,5 @@ public:
   double set_h;
   double set_airspeed;
   double h_hold;
+  double set_chi;
 };
