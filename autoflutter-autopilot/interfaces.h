@@ -21,7 +21,8 @@ class State
 public:
   // Whatever
   double h;
-  double theta;
+  double pitch;
+  double airspeed;
 };
 
 class Actuators
@@ -30,6 +31,7 @@ public:
   // Whatever
   double delta_e;
   double thrust;
+  double pitch;
 };
 
 class AutopilotState
@@ -37,4 +39,6 @@ class AutopilotState
 public:
   bool is_enabled = false;
   double set_h;
+  double set_airspeed;
+  double h_hold;
 };
