@@ -44,11 +44,7 @@ void disable_autopilot()
   }
 }
 
-void read_sensors(SensorData &sensor_data)
-{
-}
-
-void process_state(State &state, SensorData &sensor_data)
+void process_state(State &state, Sensor_Data &sensor_data)
 {
 }
 

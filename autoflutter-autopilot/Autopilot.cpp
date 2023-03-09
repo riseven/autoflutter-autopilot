@@ -6,6 +6,9 @@ Autopilot::Autopilot()
 
 void Autopilot::setup()
 {
+  _radio_interface.setup();
+  _actuators_interface.setup();
+  _sensors_interface.setup();
 }
 
 void Autopilot::update()
@@ -27,7 +30,7 @@ void Autopilot::update()
   }
   else
   {
-    // read_sensors(sensor_data);
+    _sensors_interface.read(_sensor_data);
     // process_state(state, sensor_data);
     // enable_autopilot(state);
     // _autopilot(state, autopilot_state, actuators);

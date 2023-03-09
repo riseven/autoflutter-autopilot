@@ -9,7 +9,7 @@ public:
   // ...
 };
 
-class SensorData
+class Sensor_Data
 {
 public:
   double h;
