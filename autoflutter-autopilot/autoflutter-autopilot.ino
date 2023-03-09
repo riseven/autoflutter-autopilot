@@ -1,5 +1,6 @@
 #include "interfaces.h"
 #include "PID.h"
+#include "Autopilot.h"
 
 // TODO: Refactor parameters away
 const double H_HOLD = 1;
@@ -18,6 +19,8 @@ PID airspeed_hold_using_commanded_pitch;
 PID airspeed_hold_using_throttle;
 
 AutopilotState autopilot_state;
+
+Autopilot autopilot;
 
 void read_radio(RadioData &radio_data)
 {
@@ -61,7 +64,7 @@ void process_state(State &state, SensorData &sensor_data)
 {
 }
 
-void autopilot(State &state, AutopilotState &autopilot_state, Actuators &actuators)
+void _autopilot(State &state, AutopilotState &autopilot_state, Actuators &actuators)
 {
   // Lateral-directional Autopilot
   double commanded_phi;
@@ -112,10 +115,13 @@ void send_actuators(Actuators &actuators)
 void setup()
 {
   // put your setup code here, to run once:
+  autopilot.setup();
 }
 
 void loop()
 {
+  autopilot.update();
+
   RadioData radio_data;
   SensorData sensor_data;
   Actuators actuators;
@@ -138,6 +144,6 @@ void loop()
   read_sensors(sensor_data);
   process_state(state, sensor_data);
   enable_autopilot(state);
-  autopilot(state, autopilot_state, actuators);
+  _autopilot(state, autopilot_state, actuators);
   send_actuators(actuators);
 }
