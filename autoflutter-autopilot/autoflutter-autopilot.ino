@@ -96,10 +96,6 @@ void _autopilot(State &state, AutopilotState &autopilot_state, Actuators &actuat
   actuators.pitch = pitch_attitude_hold.calculate(commanded_pitch, state.pitch);
 }
 
-void send_actuators(Actuators &actuators)
-{
-}
-
 void setup()
 {
   autopilot.setup();
