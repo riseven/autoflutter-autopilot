@@ -1,6 +1,6 @@
 #pragma once
 
-class RadioData
+class Radio_Data
 {
 public:
   bool is_radio_on;

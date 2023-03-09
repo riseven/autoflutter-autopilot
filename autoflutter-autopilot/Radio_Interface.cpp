@@ -9,7 +9,7 @@ void Radio_Interface::setup()
   // TODO: Do any radio setup here
 }
 
-void Radio_Interface::read(RadioData &radio_data)
+void Radio_Interface::read(Radio_Data &radio_data)
 {
   // TODO: Read data from radio and fill in radio_data
 }
