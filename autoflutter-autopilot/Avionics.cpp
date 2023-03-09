@@ -9,16 +9,15 @@ void Avionics::setup()
   _radio_interface.setup();
   _actuators_interface.setup();
   _sensors_interface.setup();
+  _state_processor.setup();
+  _autopilot.setup();
 }
 
 void Avionics::update()
 {
-  // SensorData sensor_data;
-  // Actuators actuators;
-
   _radio_interface.read(_radio_data);
 
-  if (_radio_data.is_radio_on)
+  if (!_radio_data.is_radio_on)
   {
     failsafe();
     return;
@@ -26,14 +25,15 @@ void Avionics::update()
 
   if (!_radio_data.is_auto_pilot_on)
   {
+    _autopilot.disable();
     fill_actuators_from_radio();
   }
   else
   {
     _sensors_interface.read(_sensor_data);
     _state_processor.update(_state, _sensor_data);
-    // enable_autopilot(state);
-    // _autopilot(state, autopilot_state, actuators);
+    _autopilot.enable(_state);
+    _autopilot.update(_state, _actuators);
   }
 
   _actuators_interface.send(_actuators);

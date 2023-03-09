@@ -5,6 +5,7 @@
 #include "Actuators_Interface.h"
 #include "Sensors_Interface.h"
 #include "State_Processor.h"
+#include "Autopilot.h"
 
 class Avionics
 {
@@ -21,6 +22,7 @@ private:
   Actuators_Interface _actuators_interface;
   Sensors_Interface _sensors_interface;
   State_Processor _state_processor;
+  Autopilot _autopilot;
 
   Radio_Data _radio_data;
   Actuators _actuators;
