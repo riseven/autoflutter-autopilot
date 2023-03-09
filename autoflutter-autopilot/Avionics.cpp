@@ -1,17 +1,17 @@
-#include "Autopilot.h"
+#include "Avionics.h"
 
-Autopilot::Autopilot()
+Avionics::Avionics()
 {
 }
 
-void Autopilot::setup()
+void Avionics::setup()
 {
   _radio_interface.setup();
   _actuators_interface.setup();
   _sensors_interface.setup();
 }
 
-void Autopilot::update()
+void Avionics::update()
 {
   // SensorData sensor_data;
   // Actuators actuators;
@@ -39,12 +39,12 @@ void Autopilot::update()
   _actuators_interface.send(_actuators);
 }
 
-void Autopilot::failsafe()
+void Avionics::failsafe()
 {
   // TODO: Implement failsafe behaviour here
 }
 
-void Autopilot::fill_actuators_from_radio()
+void Avionics::fill_actuators_from_radio()
 {
   // TODO: Fill in values for Actuators based on the signals from Radio (manual control)
 }

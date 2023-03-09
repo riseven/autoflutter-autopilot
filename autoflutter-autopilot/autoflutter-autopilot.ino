@@ -1,6 +1,6 @@
 #include "interfaces.h"
 #include "PID.h"
-#include "Autopilot.h"
+#include "Avionics.h"
 
 // TODO: Refactor parameters away
 const double H_HOLD = 1;
@@ -20,7 +20,7 @@ PID airspeed_hold_using_throttle;
 
 AutopilotState autopilot_state;
 
-Autopilot autopilot;
+Avionics avionics;
 
 void enable_autopilot(State &state)
 {
@@ -90,10 +90,10 @@ void _autopilot(State &state, AutopilotState &autopilot_state, Actuators &actuat
 
 void setup()
 {
-  autopilot.setup();
+  avionics.setup();
 }
 
 void loop()
 {
-  autopilot.update();
+  avionics.update();
 }

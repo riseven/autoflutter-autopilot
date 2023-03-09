@@ -6,10 +6,10 @@
 #include "Sensors_Interface.h"
 #include "State_Processor.h"
 
-class Autopilot
+class Avionics
 {
 public:
-  Autopilot();
+  Avionics();
   void setup();
   void update();
 
