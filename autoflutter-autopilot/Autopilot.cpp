@@ -1,11 +1,25 @@
 #include "Autopilot.h"
-
-// TODO: Refactor parameters away
-const double H_HOLD = 1;
-const double THROTTLE_TRIM_VALUE = 0.5;
+#include "Parameters.h"
 
 Autopilot::Autopilot()
 {
+  _roll_attitude = PID(
+      1.0,
+      0.0,
+      0.0,
+      Parameters::PID_ROLL_ATTITUDE_KP,
+      0.0,
+      Parameters::PID_ROLL_ATTITUDE_KI);
+
+  _roll_rate_damping = PID(
+      1.0,
+      0.0,
+      0.0,
+      Parameters::PID_ROLL_ATTITUDE_KP,
+      0.0,
+      0.0);
+
+  // TODO: Initialise all PIDs
 }
 
 void Autopilot::setup()
@@ -19,7 +33,7 @@ void Autopilot::enable(State &state)
     _is_enabled = true;
     _set_h = state.h;
     _set_airspeed = state.airspeed;
-    _h_hold = H_HOLD;
+    _h_hold = Parameters::H_HOLD;
     _set_chi = state.chi;
     // TODO: Any more things we need to set up
   }
@@ -59,7 +73,7 @@ void Autopilot::update(State &state, Actuators &actuators)
   }
   else if (is_in_hold)
   {
-    actuators.thrust = THROTTLE_TRIM_VALUE +
+    actuators.thrust = Parameters::THROTTLE_TRIM_VALUE +
                        _airspeed_hold_using_throttle.calculate(
                            _set_airspeed,
                            state.airspeed);
