@@ -11,6 +11,8 @@ public:
   void update();
 
 private:
+  void failsafe();
+
   Radio_Interface _radio_interface;
   RadioData _radio_data;
 };

@@ -15,11 +15,11 @@ void Autopilot::update()
 
   _radio_interface.read(_radio_data);
 
-  // if (radio_data.is_radio_on)
-  // {
-  //   failsafe();
-  //   return;
-  // }
+  if (_radio_data.is_radio_on)
+  {
+    failsafe();
+    return;
+  }
 
   // if (!radio_data.is_auto_pilot_on)
   // {
@@ -33,4 +33,9 @@ void Autopilot::update()
   // enable_autopilot(state);
   // _autopilot(state, autopilot_state, actuators);
   // send_actuators(actuators);
+}
+
+void Autopilot::failsafe()
+{
+  // TODO: Implement failsafe behaviour here
 }
