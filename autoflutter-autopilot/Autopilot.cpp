@@ -21,12 +21,12 @@ void Autopilot::update()
     return;
   }
 
-  // if (!radio_data.is_auto_pilot_on)
-  // {
-  //   actuators_from_radio(radio_data, actuators);
-  //   send_actuators(actuators);
-  //   return;
-  // }
+  if (!_radio_data.is_auto_pilot_on)
+  {
+    fill_actuators_from_radio();
+    // send_actuators(actuators);
+    return;
+  }
 
   // read_sensors(sensor_data);
   // process_state(state, sensor_data);
@@ -38,4 +38,9 @@ void Autopilot::update()
 void Autopilot::failsafe()
 {
   // TODO: Implement failsafe behaviour here
+}
+
+void Autopilot::fill_actuators_from_radio()
+{
+  // TODO: Fill in values for Actuators based on the signals from Radio (manual control)
 }

@@ -12,7 +12,10 @@ public:
 
 private:
   void failsafe();
+  void fill_actuators_from_radio();
 
   Radio_Interface _radio_interface;
+
   Radio_Data _radio_data;
+  Actuators _actuators;
 };

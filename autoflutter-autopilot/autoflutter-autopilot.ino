@@ -44,10 +44,6 @@ void disable_autopilot()
   }
 }
 
-void actuators_from_radio(Radio_Data &radio_data, Actuators &actuators)
-{
-}
-
 void read_sensors(SensorData &sensor_data)
 {
 }
