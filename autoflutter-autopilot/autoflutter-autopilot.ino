@@ -44,10 +44,6 @@ void disable_autopilot()
   }
 }
 
-void process_state(State &state, Sensor_Data &sensor_data)
-{
-}
-
 void _autopilot(State &state, AutopilotState &autopilot_state, Actuators &actuators)
 {
   // Lateral-directional Autopilot

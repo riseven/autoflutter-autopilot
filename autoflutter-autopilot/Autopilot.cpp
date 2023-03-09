@@ -31,7 +31,7 @@ void Autopilot::update()
   else
   {
     _sensors_interface.read(_sensor_data);
-    // process_state(state, sensor_data);
+    _state_processor.update(_state, _sensor_data);
     // enable_autopilot(state);
     // _autopilot(state, autopilot_state, actuators);
   }
