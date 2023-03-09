@@ -22,10 +22,6 @@ AutopilotState autopilot_state;
 
 Autopilot autopilot;
 
-void read_radio(RadioData &radio_data)
-{
-}
-
 void enable_autopilot(State &state)
 {
   if (!autopilot_state.is_enabled)
@@ -46,10 +42,6 @@ void disable_autopilot()
     autopilot_state.is_enabled = false;
     // TODO: Any more things we need to tear down
   }
-}
-
-void failsafe()
-{
 }
 
 void actuators_from_radio(RadioData &radio_data, Actuators &actuators)
@@ -114,36 +106,10 @@ void send_actuators(Actuators &actuators)
 
 void setup()
 {
-  // put your setup code here, to run once:
   autopilot.setup();
 }
 
 void loop()
 {
   autopilot.update();
-
-  // RadioData radio_data;
-  // SensorData sensor_data;
-  // Actuators actuators;
-
-  // read_radio(radio_data);
-
-  // if (radio_data.is_radio_on)
-  // {
-  //   failsafe();
-  //   return;
-  // }
-
-  // if (!radio_data.is_auto_pilot_on)
-  // {
-  //   actuators_from_radio(radio_data, actuators);
-  //   send_actuators(actuators);
-  //   return;
-  // }
-
-  // read_sensors(sensor_data);
-  // process_state(state, sensor_data);
-  // enable_autopilot(state);
-  // _autopilot(state, autopilot_state, actuators);
-  // send_actuators(actuators);
 }
